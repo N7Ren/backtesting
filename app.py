@@ -5,6 +5,7 @@ import yfinance as yf
 import quandl
 
 from strategies.ma_crossover import MACrossover
+from strategies.rsi import RSI
 
 quandl.ApiConfig.api_key = '<insert-quandl-api-key>'
 
@@ -12,8 +13,8 @@ if __name__ == '__main__':
     #load_dotenv()
     #quandl_api_key = os.getenv("QUANDL_API_KEY")
 
-    data = bt.feeds.PandasData(dataname=yf.download("MSFT", 
-                                            start="2018-01-01", 
+    data = bt.feeds.PandasData(dataname=yf.download("AAPL", 
+                                            start="2023-01-01", 
                                             end="2023-12-31"))
 
     #dataset_code = 'WIKI/AAPL'  # Example for Apple stock data
@@ -23,7 +24,8 @@ if __name__ == '__main__':
     cerebro = bt.Cerebro()
     cerebro.adddata(data)
 
-    cerebro.addstrategy(MACrossover)
+    #cerebro.addstrategy(MACrossover)
+    cerebro.addstrategy(RSI)
 
     cerebro.broker.setcash(10000)
 
